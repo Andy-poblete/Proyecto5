@@ -1,15 +1,22 @@
 const express = require('express');
-const auth = require('../middleware/auth')
-const {getProducts, createProduct} = require('../controllers/productController')
+const {auth, admin} = require('../middleware/auth')
+const { 
+    getProducts, 
+    getProductById, 
+    reduceStock 
+} = require('../controllers/productController')
 
 const productRouter = express.Router();
 
 
 productRouter.route('/products')
-    .get(auth, getProducts)
+    .get(getProducts)
 
-productRouter.route("/createProduct")
-    .post(createProduct)
 
+productRouter.route("/product/:id")
+    .get(getProductById)
+
+productRouter.route("/reduceStock")
+    .put(reduceStock)
 
 module.exports = productRouter;

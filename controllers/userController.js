@@ -36,6 +36,19 @@ const getUsers = async (req, res) => {
 
 // Funciones actualizar y delete
 
+
+
+const getProfile = async(req, res) => {
+    try {
+        const {id} = req.params;
+        const getInfoUser = await User.findById(id).select("-password -salt")
+
+        res.json({success: true, info: getInfoUser })
+    } catch (error) {
+        res.json({success: false, message: error.message})
+    }
+}
+
 const editUser = async (req, res) => {
 
     try {
@@ -87,4 +100,4 @@ const loginUser = async (req, res) => {
     }
 }
 
-module.exports = { createUser, getUsers, editUser, deleteUser, loginUser };
+module.exports = { createUser, getUsers, editUser, deleteUser, loginUser, getProfile };
