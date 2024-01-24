@@ -21,4 +21,4 @@ const auth = expressjwt({
 })
 
 
-module.exports = auth;
+module.exports = {auth};
