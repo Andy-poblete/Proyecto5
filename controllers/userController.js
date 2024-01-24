@@ -20,7 +20,7 @@ const createUser = async (req, res) => {
         res.json({ success: true, message: "Usuario Creado", info: newUser._id, token: newUser.generateToken() })
 
     } catch (error) {
-        res.json({ success: false, message: error.message })
+        res.status(500).json({ success: false, message: error.message })
     }
 }
 
@@ -33,8 +33,6 @@ const getUsers = async (req, res) => {
         res.json({ success: false, message: error.message })
     }
 }
-
-// Funciones actualizar y delete
 
 
 
@@ -58,7 +56,7 @@ const editUser = async (req, res) => {
 
         const updateUser = await User.findByIdAndUpdate(id, contain, { new: true });
 
-        res.json({ success: true, msg: "usuario actualizado", updateUser })
+        res.json({ success: true, message: "usuario actualizado", updateUser })
     } catch (error) {
         res.status(500).json({ success: false, message: error.message })
     }

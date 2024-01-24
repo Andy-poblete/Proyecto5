@@ -1,10 +1,5 @@
 const express = require('express');
-const {auth, admin} = require('../middleware/auth')
-const { 
-    getProducts, 
-    getProductById, 
-    reduceStock 
-} = require('../controllers/productController')
+const {  getProducts, getProductById, reduceStock } = require('../controllers/productController')
 
 const productRouter = express.Router();
 
