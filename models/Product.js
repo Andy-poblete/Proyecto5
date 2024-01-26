@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
     sku: {
-        type: Number,
+        type: String,
         required: true,
         minLenght: 6,
         maxLenght: 6

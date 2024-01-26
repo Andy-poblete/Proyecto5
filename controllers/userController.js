@@ -50,7 +50,6 @@ const getProfile = async(req, res) => {
 const editUser = async (req, res) => {
 
     try {
-        // throw new Error('error forzado')
         const { id } = req.params;
         const contain = req.body;
 
@@ -64,7 +63,6 @@ const editUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
-        // throw new Error('error forzado')
         const { id } = req.params;
 
         const destroyUser = await User.findByIdAndDelete(id);
@@ -78,10 +76,10 @@ const deleteUser = async (req, res) => {
 const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await User.findOne({ email }); // buscando email en mongo atlas
+        const user = await User.findOne({ email });
 
         if (!user) {
-            throw new Error("Usuario no existe!") // no encontro el usuario
+            throw new Error("Usuario no existe!")
         }
 
         const validarPassword = user.verificarEncriptacion(password, user.salt, user.password)
@@ -90,7 +88,7 @@ const loginUser = async (req, res) => {
             throw new Error('Email o contraseña incorrecta!')
         }
 
-        res.json({ success: true, msg: "Has iniciado sesion correctamente!", token: user.generateToken() })
+        res.json({ success: true, message: "Has iniciado sesion correctamente!", token: user.generateToken() })
 
 
     } catch (error) {
@@ -98,4 +96,15 @@ const loginUser = async (req, res) => {
     }
 }
 
-module.exports = { createUser, getUsers, editUser, deleteUser, loginUser, getProfile };
+const getVerifyUser = async (req, res) => {
+    try {
+        const { id } = req.auth;
+        const getInfoUser = await User.findById(id).select("-password -salt")
+
+        res.json({ success: true, msg: `Informacion de: ${getInfoUser.email}`, info: getInfoUser })
+    } catch (error) {
+        res.json({ success: false, message: error.message })
+    }
+}
+
+module.exports = { createUser, getUsers, editUser, deleteUser, loginUser, getProfile, getVerifyUser };

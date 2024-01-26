@@ -41,7 +41,7 @@ userSchema.methods.encriptarPassword = function (password) {
 
 userSchema.methods.verificarEncriptacion = function (password, salt, passwordDB) {
     const encriptar = crypto.pbkdf2Sync(password, salt, 10000, 10, 'sha-512').toString('hex')
-    return encriptar === passwordDB // true o un false
+    return encriptar === passwordDB
 }
 
 userSchema.methods.generateToken = function () {
