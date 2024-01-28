@@ -26,7 +26,7 @@ const createUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
     try {
-        const users = await User.find();
+        const users = await User.findById(id);
 
         res.json({ success: true, info: users })
     } catch (error) {
